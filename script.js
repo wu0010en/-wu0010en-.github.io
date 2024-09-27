@@ -6,10 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCorpus(data) {
         corpusList.innerHTML = '';
         data.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'corpus-item';
-            div.textContent = item.text;
-            corpusList.appendChild(div);
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.all}</td>
+                <td>${item.metaphor ? '是' : '否'}</td>
+                <td>${item.source || '-'}</td>
+                <td>${item.target || '-'}</td>
+            `;
+            corpusList.appendChild(row);
         });
     }
 
@@ -18,10 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = categorySelect.value;
 
         const filteredData = corpusData.filter(item => {
-            const matchesSearch = item.text.toLowerCase().includes(searchTerm);
+            const matchesSearch = item.all.toLowerCase().includes(searchTerm) ||
+                                  (item.source && item.source.toLowerCase().includes(searchTerm)) ||
+                                  (item.target && item.target.toLowerCase().includes(searchTerm));
             const matchesCategory = category === 'all' || 
-                (category === 'metaphor' && item.isMetaphor) || 
-                (category === 'non-metaphor' && !item.isMetaphor);
+                (category === 'metaphor' && item.metaphor === 1) || 
+                (category === 'non-metaphor' && item.metaphor === 0);
             return matchesSearch && matchesCategory;
         });
 
@@ -32,8 +38,4 @@ document.addEventListener('DOMContentLoaded', () => {
     categorySelect.addEventListener('change', filterCorpus);
 
     renderCorpus(corpusData);
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 4ee36efb8f00f0664264b4d6d3a78df22662fb73
