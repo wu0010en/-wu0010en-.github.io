@@ -32,4 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     categorySelect.addEventListener('change', filterCorpus);
 
     renderCorpus(corpusData);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 4ee36efb8f00f0664264b4d6d3a78df22662fb73
