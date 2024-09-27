@@ -1,3 +1,4 @@
+console.log("语料数据:", corpusData);
 import matplotlib.pyplot as plt
 
 # Data
